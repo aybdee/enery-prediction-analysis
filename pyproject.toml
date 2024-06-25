@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "golibe-project"
+version = "0.1.0"
+description = ""
+authors = ["abundance <abundanceanyanwu@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+pandas = "^2.2.2"
+openpyxl = "^3.1.4"
+ipykernel = "^6.29.4"
+plotly = "^5.22.0"
+nbformat = "^5.10.4"
+matplotlib = "^3.9.0"
+statsmodels = "^0.14.2"
+scikit-learn = "^1.5.0"
+notebook = "^7.2.1"
+cython = "^3.0.10"
+numpy = "1.26.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
