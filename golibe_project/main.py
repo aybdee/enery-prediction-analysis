@@ -11,12 +11,14 @@ from statsmodels.graphics.tsaplots import plot_acf
 
 st.title("Studying Energy Consumption with Time Series Analysis")
 
+
 # Load data
 def load_data():
-    file = "./data/consumption_cleaned.csv"
+    file = "../data/consumption_cleaned.csv"
     data = pd.read_csv(file, index_col=0)
     data.columns = pd.to_datetime(data.columns, format="%b%y")
     return data
+
 
 data = load_data()
 
@@ -90,6 +92,14 @@ arima_forecast = arima_result.forecast(steps=len(test))
 
 # Plot ARIMA results
 fig, ax = plt.subplots()
+ax.set_facecolor("#0e1117")
+fig.patch.set_alpha(0.0)
+ax.tick_params(colors="white")
+ax.yaxis.label.set_color("white")
+ax.xaxis.label.set_color("white")
+for spine in ax.spines.values():
+    spine.set_edgecolor("white")
+
 ax.plot(train.index, train, label="Train")
 ax.plot(test.index, test, label="Test")
 ax.plot(test.index, arima_forecast, label="ARIMA Forecast")
@@ -107,6 +117,13 @@ ets_forecast = ets_result.forecast(steps=len(test))
 
 # Plot ETS results
 fig, ax = plt.subplots()
+ax.set_facecolor("#0e1117")
+fig.patch.set_alpha(0.0)
+ax.tick_params(colors="white")
+ax.yaxis.label.set_color("white")
+ax.xaxis.label.set_color("white")
+for spine in ax.spines.values():
+    spine.set_edgecolor("white")
 ax.plot(train.index, train, label="Train")
 ax.plot(test.index, test, label="Test")
 ax.plot(test.index, ets_forecast, label="ETS Forecast")
@@ -124,6 +141,15 @@ stlf_arima_forecast = stlf_arima_result.forecast(steps=len(test))
 
 # Plot STL + ARIMA results
 fig, ax = plt.subplots()
+
+ax.set_facecolor("#0e1117")
+fig.patch.set_alpha(0.0)
+ax.tick_params(colors="white")
+ax.yaxis.label.set_color("white")
+ax.xaxis.label.set_color("white")
+for spine in ax.spines.values():
+    spine.set_edgecolor("white")
+
 ax.plot(train.index, train, label="Train")
 ax.plot(test.index, test, label="Test")
 ax.plot(test.index, stlf_arima_forecast, label="STL + ARIMA Forecast")
@@ -135,12 +161,24 @@ st.write(f"STL + ARIMA MAE: {stlf_arima_mae}")
 
 # STL + ETS Model
 st.subheader("STL + ETS Model")
-stlf_ets = STLForecast(train, ExponentialSmoothing, model_kwargs={"seasonal": "add", "seasonal_periods": 12})
+stlf_ets = STLForecast(
+    train,
+    ExponentialSmoothing,
+    model_kwargs={"seasonal": "add", "seasonal_periods": 12},
+)
 stlf_ets_result = stlf_ets.fit()
 stlf_ets_forecast = stlf_ets_result.forecast(steps=len(test))
 
 # Plot STL + ETS results
 fig, ax = plt.subplots()
+
+ax.set_facecolor("#0e1117")
+fig.patch.set_alpha(0.0)
+ax.tick_params(colors="white")
+ax.yaxis.label.set_color("white")
+ax.xaxis.label.set_color("white")
+for spine in ax.spines.values():
+    spine.set_edgecolor("white")
 ax.plot(train.index, train, label="Train")
 ax.plot(test.index, test, label="Test")
 ax.plot(test.index, stlf_ets_forecast, label="STL + ETS Forecast")
@@ -161,12 +199,21 @@ stlf_ets_error = test - stlf_ets_forecast
 
 # Create a DataFrame for errors
 error_df = pd.DataFrame(
-    {"Date": test.index, "ARIMA Error": arima_error, "ETS Error": ets_error, "STL + ARIMA Error": stlf_arima_error, "STL + ETS Error": stlf_ets_error}
+    {
+        "Date": test.index,
+        "ARIMA Error": arima_error,
+        "ETS Error": ets_error,
+        "STL + ARIMA Error": stlf_arima_error,
+        "STL + ETS Error": stlf_ets_error,
+    }
 )
 
 # Plot errors
 fig = px.line(
-    error_df, x="Date", y=["ARIMA Error", "ETS Error", "STL + ARIMA Error", "STL + ETS Error"], title="Model Prediction Errors"
+    error_df,
+    x="Date",
+    y=["ARIMA Error", "ETS Error", "STL + ARIMA Error", "STL + ETS Error"],
+    title="Model Prediction Errors",
 )
 st.plotly_chart(fig)
 
@@ -193,7 +240,13 @@ future_dates = pd.date_range(
     start=ts_data.index[-1], periods=prediction_range + 1, freq="M"
 )[1:]
 future_df = pd.DataFrame(
-    {"Date": future_dates, "ARIMA Forecast": future_arima, "ETS Forecast": future_ets, "STL + ARIMA Forecast": future_stlf_arima, "STL + ETS Forecast": future_stlf_ets}
+    {
+        "Date": future_dates,
+        "ARIMA Forecast": future_arima,
+        "ETS Forecast": future_ets,
+        "STL + ARIMA Forecast": future_stlf_arima,
+        "STL + ETS Forecast": future_stlf_ets,
+    }
 )
 st.write(future_df)
 
