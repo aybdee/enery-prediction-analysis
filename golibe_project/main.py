@@ -13,7 +13,7 @@ st.title("Studying Energy Consumption with Time Series Analysis")
 
 # Load data
 def load_data():
-    file = "../data/consumption_cleaned.csv"
+    file = "./data/consumption_cleaned.csv"
     data = pd.read_csv(file, index_col=0)
     data.columns = pd.to_datetime(data.columns, format="%b%y")
     return data
