@@ -6,7 +6,7 @@ authors = ["abundance <abundanceanyanwu@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.12,<3.13"
+python = ">=3.11"
 pandas = "^2.2.2"
 openpyxl = "^3.1.4"
 ipykernel = "^6.29.4"
