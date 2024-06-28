@@ -135,7 +135,7 @@ st.write(f"ETS MAE: {ets_mae}")
 
 # STL + ARIMA Model
 st.subheader("STL + ARIMA Model")
-stlf_arima = STLForecast(train, ARIMA, model_kwargs={"order": (5, 1, 0)})
+stlf_arima = STLForecast(train, ARIMA, model_kwargs={"order": (2, 1, 0)})
 stlf_arima_result = stlf_arima.fit()
 stlf_arima_forecast = stlf_arima_result.forecast(steps=len(test))
 
