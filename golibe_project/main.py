@@ -86,7 +86,7 @@ train, test = ts_data[:train_size], ts_data[train_size:]
 
 # ARIMA Model
 st.subheader("ARIMA Model")
-arima_model = ARIMA(train, order=(2, 1, 0))
+arima_model = ARIMA(train, order=(5, 1, 0))
 arima_result = arima_model.fit()
 arima_forecast = arima_result.forecast(steps=len(test))
 
@@ -111,7 +111,7 @@ st.write(f"ARIMA MAE: {arima_mae}")
 
 # Exponential Smoothing (ETS) Model
 st.subheader("ETS Model")
-ets_model = ExponentialSmoothing(train, seasonal="add", seasonal_periods=12)
+ets_model = ExponentialSmoothing(train, seasonal="add", seasonal_periods=5)
 ets_result = ets_model.fit()
 ets_forecast = ets_result.forecast(steps=len(test))
 
@@ -135,7 +135,7 @@ st.write(f"ETS MAE: {ets_mae}")
 
 # STL + ARIMA Model
 st.subheader("STL + ARIMA Model")
-stlf_arima = STLForecast(train, ARIMA, model_kwargs={"order": (2, 1, 0)})
+stlf_arima = STLForecast(train, ARIMA, model_kwargs={"order": (5, 1, 0)})
 stlf_arima_result = stlf_arima.fit()
 stlf_arima_forecast = stlf_arima_result.forecast(steps=len(test))
 
